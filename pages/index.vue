@@ -4,6 +4,6 @@
   </div>
 </template>
 <script setup>
-import ThreeScene from "@/components/ThreeScene.vue";
+import ThreeScene from "../components/ThreeScene.vue";
 </script>
 <style></style>
