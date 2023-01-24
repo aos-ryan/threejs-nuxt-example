@@ -3,7 +3,5 @@
     <ThreeScene />
   </div>
 </template>
-<script setup>
-import { ThreeScene } from "#components";
-</script>
+<script setup></script>
 <style></style>
