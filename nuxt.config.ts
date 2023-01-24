@@ -3,5 +3,8 @@ export default defineNuxtConfig({
   modules: ["@vueuse/nuxt"],
   build: {
     transpile: ["three"]
+  },
+  nitro: {
+    preset: "netlify"
   }
 });
