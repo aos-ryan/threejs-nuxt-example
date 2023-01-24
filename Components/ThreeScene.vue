@@ -6,11 +6,14 @@
 
 <script setup>
 import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 const canvas = ref();
 let camera, scene, renderer;
-let mesh;
+let controls;
 
 function init() {
+  // Camera
   camera = new THREE.PerspectiveCamera(
     70,
     window.innerWidth / window.innerHeight,
@@ -19,14 +22,20 @@ function init() {
   );
   camera.position.z = 400;
 
+  // Scene
   scene = new THREE.Scene();
 
-  const geometry = new THREE.BoxGeometry(200, 200, 200);
-  const material = new THREE.MeshBasicMaterial({ color: 0x008080 });
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+  scene.add(ambientLight);
 
-  mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
-
+  // Models
+  const gltfLoader = new GLTFLoader();
+  gltfLoader.load("/models/Boulder/boulder.glb", (gltf) => {
+    // console.log(gltf);
+    scene.add(gltf.scene);
+  });
+  // Renderer
   renderer = new THREE.WebGLRenderer({
     antialias: true,
     canvas: canvas.value,
@@ -35,11 +44,15 @@ function init() {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  //
+  // Controls
+  controls = new OrbitControls(camera, canvas.value);
+  controls.enableDamping = true;
 
+  // Resize Event Listener
   window.addEventListener("resize", onWindowResize);
 }
 
+// Function for when the window resizes
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -47,15 +60,18 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+// Animate function
 function animate() {
-  requestAnimationFrame(animate);
-
-  mesh.rotation.x += 0.005;
-  mesh.rotation.y += 0.01;
-
+  // Update controls
+  controls.update();
+  // Render Scene
   renderer.render(scene, camera);
+
+  // Update on next frame
+  requestAnimationFrame(animate);
 }
 
+// Wait for the component to mount then init the scene and animate
 onMounted(() => {
   init();
   animate();
