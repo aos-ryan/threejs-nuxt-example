@@ -4,6 +4,6 @@
   </div>
 </template>
 <script setup>
-import ThreeScene from "~~/.nuxt/components";
+import ThreeScene from "@/components/ThreeScene.vue";
 </script>
 <style></style>
