@@ -1,9 +1,9 @@
 <template>
   <div class="page">
-    <Threescene />
+    <ThreeScene />
   </div>
 </template>
 <script setup>
-import Threescene from "@/components/ThreeScene.vue";
+import ThreeScene from "@/components/ThreeScene.vue";
 </script>
 <style></style>
