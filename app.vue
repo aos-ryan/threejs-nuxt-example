@@ -1,5 +1,5 @@
 <template>
   <div>
-    <ThreeScene />
+    <NuxtPage />
   </div>
 </template>

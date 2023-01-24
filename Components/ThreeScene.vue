@@ -35,6 +35,7 @@ function init() {
     // console.log(gltf);
     scene.add(gltf.scene);
   });
+
   // Renderer
   renderer = new THREE.WebGLRenderer({
     antialias: true,
