@@ -1,8 +1,6 @@
 <template>
   <div class="page">
-    <ClientOnly>
-      <ThreeScene />
-    </ClientOnly>
+    <ThreeScene />
   </div>
 </template>
 <script setup></script>
