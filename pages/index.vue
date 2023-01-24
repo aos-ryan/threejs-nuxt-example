@@ -3,13 +3,5 @@
     <ThreeScene />
   </div>
 </template>
-<script>
-import ThreeScene from "@/components/ThreeScene.vue";
-
-export default {
-  components: {
-    ThreeScene
-  }
-};
-</script>
+<script setup></script>
 <style></style>
