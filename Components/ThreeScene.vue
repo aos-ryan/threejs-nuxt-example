@@ -4,10 +4,22 @@
     <div
       class="point point-0 visible"
       ref="point0"
+      @click="cameraFly(0)"
     >
       <div class="label">1</div>
       <div class="text">
         Approach: the trail / path leading up to the start of a climb.
+      </div>
+    </div>
+    <div
+      class="point point-1 visible"
+      ref="point1"
+      @click="cameraFly(1)"
+    >
+      <div class="label">2</div>
+      <div class="text">
+        Starting Holds: The point on a rockface your hands need to be placed to
+        begin the climb.
       </div>
     </div>
   </div>
@@ -20,6 +32,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 const canvas = ref();
 let point0 = ref();
+let point1 = ref();
 let camera, scene, renderer, controls, points;
 
 function init() {
@@ -55,7 +68,8 @@ function init() {
     {
       position: new THREE.Vector3(5, -2.2, 0.76),
       element: point0.value
-    }
+    },
+    { position: new THREE.Vector3(8, -1.2, -2), element: point1.value }
   ];
 
   // Renderer
@@ -86,7 +100,22 @@ function onWindowResize() {
 
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
-
+// animate the camera on point click
+function cameraFly(index) {
+  gsap.to(camera.position, {
+    x: points[index].position.x - 1,
+    y: points[index].position.y + 1,
+    z: points[index].position.z + 0.24,
+    onUpdate: () => {
+      controls.target = points[index].position.clone();
+      camera.lookAt(points[index]);
+    }
+    // z: 0.76
+    // x: 4.638247037648384,
+    // y: -1.6244288484921587,
+    // z: 1.397581083776155,
+  });
+}
 // Animate function
 function animate() {
   // Go through each point
